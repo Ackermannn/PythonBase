@@ -1,18 +1,21 @@
+/*  <æ™ºèƒ½ä¼˜åŒ–æ–¹æ³•> çš„ç¬¬ä¸‰æ¬¡ä½œä¸š
+*	ä½œè€… : å¤å°šæ¢“ å­¦å· 1970758
+*	version 1.0
+*	æœ€åç¼–è¾‘æ—¶é—´: 2019.10.01 9:06am
+*/
 #include <iostream>
 #include <vector>
 #include <stdlib.h>    
 #include <time.h> 
 
-#define HILLNERBOR 500
-#define SAINNERLOOP 500
+#define HILLNERBOR 500  // çˆ¬å±±ç®—æ³• éšæœºéå†çš„é‚»å±…æ•°
+#define SAINNERLOOP 500 // SA å†…å¾ªç¯æ¬¡æ•°
 using namespace std;
-
-
-// ¹¤ÈËµÄĞ§ÓÃ¾ØÕó
+// å·¥äººçš„æ•ˆç”¨çŸ©é˜µ
 vector<vector<int>> getUtility() {
 	vector<vector<int>> utility; 
 	srand((unsigned)time(NULL));
-	const int MIN = 1;   //Ëæ»úÊı²úÉúµÄ·¶Î§    
+	const int MIN = 1;   //éšæœºæ•°äº§ç”Ÿçš„èŒƒå›´    
 	const int MAX = 100;
 	vector<int> ur;
 
@@ -27,11 +30,10 @@ vector<vector<int>> getUtility() {
 	}
 	return utility;
 }
-
-// Ëæ»úµÄ³õÊ¼½â
+// éšæœºçš„åˆå§‹è§£
 vector<int> randperm() {
 	vector<int> idx;
-	const int MIN = 0;   //Ëæ»úÊı²úÉúµÄ·¶Î§    
+	const int MIN = 0;   //éšæœºæ•°äº§ç”Ÿçš„èŒƒå›´    
 	const int MAX = 99;
 	int changeIdx;
 	srand((unsigned)time(NULL));
@@ -42,21 +44,20 @@ vector<int> randperm() {
 		swap(idx[x],idx[changeIdx]);
 	}
 	return idx;
-}
-
-//
+}  
+// è®¡ç®—æ€»æ—¶é—´
 int getTotalTime(const vector<int>& plan, const vector<vector<int>>& utility) {
 	int res = 0;
 	for (int i = 0; i < 100; i++)
 		res += utility[i][plan[i]];
 	return res;
 }
-
+// çˆ¬å±±ç®—æ³•å¯»æ‰¾é‚»å±…
 int findMinNeighbour(vector<int>& plan, const vector<vector<int>>& utility, int min_time) {
 	int temp;
 	vector<int> min_plan = plan;
-	  //  if ±©Á¦ËÑË÷ ËùÓĞÁÚÓò!! 4950 ´Î!
-	const int MIN = 0;   //Ëæ»úÊı²úÉúµÄ·¶Î§    
+	  //  if æš´åŠ›æœç´¢ æ‰€æœ‰é‚»åŸŸ!! 4950 æ¬¡!
+	const int MIN = 0;   //éšæœºæ•°äº§ç”Ÿçš„èŒƒå›´    
 	const int MAX = 99;
 	srand((unsigned)time(NULL));
 	for (int i = 0; i < HILLNERBOR; i++) {
@@ -70,31 +71,31 @@ int findMinNeighbour(vector<int>& plan, const vector<vector<int>>& utility, int 
 			min_plan = ch_plan;
 		}
 	}
-	plan = min_plan;// ĞŞ¸ÄÉÏ¼¶º¯ÊıÖĞµÄ plan;
+	plan = min_plan;// ä¿®æ”¹ä¸Šçº§å‡½æ•°ä¸­çš„ plan;
 	return min_time;
 }
-
+// çˆ¬å±±ç®—æ³•çš„ main 
 double climbHillAlgorithm(int min_time, vector<int> plan, const vector<vector<int>>& utility) {
-	//// ÅÀÉ½Ëã·¨
+	//// çˆ¬å±±ç®—æ³•
 	int lastone = min_time;
 	for (int i = 0; i < 100; i++) {
 
-		min_time = findMinNeighbour(plan, utility, min_time);// Ã¿´Îµ÷ÓÃ plan»á±ä
-	//	cout << "ÅÀÉ½Ëã·¨µÄµÚ: " << i << "´Î:" << min_time << endl;
+		min_time = findMinNeighbour(plan, utility, min_time);// æ¯æ¬¡è°ƒç”¨ planä¼šå˜
+	//	cout << "çˆ¬å±±ç®—æ³•çš„ç¬¬: " << i << "æ¬¡:" << min_time << endl;
 		if (min_time == lastone) break;
 		lastone = min_time;
 	}
-	cout << "ÕâÊÇÅÀÉ½Ëã·¨.....×ÜÊ±¼ä: " << min_time << endl;
+	cout << "è¿™æ˜¯çˆ¬å±±ç®—æ³•.....æ€»æ—¶é—´: " << min_time << endl;
 	return (double)min_time;
 }
-
+// æ¨¡æ‹Ÿé€€ç«ç®—æ³•
 double SA(int min_time_SA, vector<int> plan_SA, const vector<vector<int>>& utility) {
-	// Ä£ÄâÍË»ğ
+	// æ¨¡æ‹Ÿé€€ç«
 	srand((unsigned)time(NULL));
-	const int MIN = 0;   //Ëæ»úÊı²úÉúµÄ·¶Î§    
+	const int MIN = 0;   //éšæœºæ•°äº§ç”Ÿçš„èŒƒå›´    
 	const int MAX = 99;
 	double history_min = INT_MAX;
-	// ³õÊ¼»¯ÎÂ¶È
+	// åˆå§‹åŒ–æ¸©åº¦
 	double T = 100;
 	while (T > 0.1)
 	{
@@ -103,14 +104,14 @@ double SA(int min_time_SA, vector<int> plan_SA, const vector<vector<int>>& utili
 		{
 			double temp;
 
-			int changeIdx1 = MIN + rand() % (MAX + MIN - 1); // Ëæ»úÑ¡È¡ÁÚ¾Ó
+			int changeIdx1 = MIN + rand() % (MAX + MIN - 1); // éšæœºé€‰å–é‚»å±…
 			int changeIdx2 = MIN + rand() % (MAX + MIN - 1);
 			swap(plan_SA[changeIdx1], plan_SA[changeIdx2]);
 			temp = getTotalTime(plan_SA, utility);
 			if (temp <= min_time_SA)
 			{
 				min_time_SA = temp;
-				//cout << "ÎŞÌõ¼ş×ªÒÆÀ²,×ÜÊ±¼ä:" << min_time_SA << endl;
+				//cout << "æ— æ¡ä»¶è½¬ç§»å•¦,æ€»æ—¶é—´:" << min_time_SA << endl;
 				if (temp < history_min) history_min = temp;
 			}
 			else
@@ -120,33 +121,55 @@ double SA(int min_time_SA, vector<int> plan_SA, const vector<vector<int>>& utili
 				if (randnum < probility)
 				{
 					min_time_SA = temp;
-					//cout << "Ëæ»úÊıÊÇ: "<<randnum <<" < "<< probility <<"..×ÜÊ±¼ä:" << min_time_SA << endl;
+					//cout << "éšæœºæ•°æ˜¯: "<<randnum <<" < "<< probility <<"..æ€»æ—¶é—´:" << min_time_SA << endl;
 				}
 				else {
-					swap(plan_SA[changeIdx1], plan_SA[changeIdx2]);//»»»ØÀ´
-					//cout << "²»½ÓÊÜ,×ÜÊ±¼ä:" << min_time_SA << endl;
+					swap(plan_SA[changeIdx1], plan_SA[changeIdx2]);//æ¢å›æ¥
+					//cout << "ä¸æ¥å—,æ€»æ—¶é—´:" << min_time_SA << endl;
 				}
 			}
 
 		}
 		T -= 1;
 	}
-	cout << "SAËã·¨µÄÀúÊ·×îĞ¡: " << history_min << endl; // ÀúÊ·×îĞ¡: 537
+	cout << "SAç®—æ³•çš„å†å²æœ€å°: " << history_min << endl; // å†å²æœ€å°: 537
 	return history_min;
+}
+double ttext(vector<int> v1, vector<int> v2) {
+	double sum1=0, sum2=0,mean1,mean2,s1=0,s2=0,t=0,n1= v1.size(),n2= v2.size();
+	for (auto x : v1) sum1 += x;
+	for (auto x : v2) sum2 += x;
+	mean1 = sum1 / n1;
+	mean2 = sum2 / n2;
+	for (auto x : v1) s1 += (x - mean1) * (x - mean1);
+	s1 /= (n1 - 1);
+	for (auto x : v2) s2 += (x - mean2) * (x - mean2);
+	s2 /= (n2 - 1);
+	t = (mean1 - mean2) / sqrt((n1-1) * s1 + (n2-1) * s2 / (n1+ n2-2)) * (1/n1+1/n2);
+	return t;
 }
 int main() {
 	vector<vector<int>> utility;  // 100 * 100 
-	vector<int> plan,plan_SA;
+	vector<int> plan,v1,v2;
 	
 	utility = getUtility();
-	plan_SA = plan = randperm();
+	plan = randperm();
 	int min_time = getTotalTime(plan, utility);
 	double min_time_SA = min_time,res1,res2;
-	
-	res1 = climbHillAlgorithm(min_time, plan, utility);
-	res2 = SA(min_time_SA, plan, utility);
-
-
+	for (int i = 0; i < 30; i++) {   // å–30æ¬¡å¾ªç¯å®éªŒ
+		res1 = climbHillAlgorithm(min_time, plan, utility);
+		v1.push_back(res1);
+		res2 = SA(min_time, plan, utility);
+		v2.push_back(res2);
+	}
+	// T æ£€éªŒ
+	double Tvalue;
+	Tvalue = ttext(v1, v2);
+	cout << "Tå€¼ä¸º: " << Tvalue << endl;
+	cout << "på€¼å–0.05æ—¶,æ ·æœ¬ç©ºé—´ä¸º30æ—¶,æŸ¥è¡¨å¾—åˆ°Tå€¼ä¸º1.6973" << endl;
+	if (Tvalue > 1.6973) cout << "åœ¨95%çš„ç½®ä¿¡æ°´å¹³ä¸Š,ä¸¤ç§æ–¹æ³•æœ‰æ˜¾è‘—å·®å¼‚" << endl;
+	else
+		cout << "åœ¨95%çš„ç½®ä¿¡æ°´å¹³ä¸Š,ä¸¤ç§æ–¹æ³•æœ‰æ˜¾è‘—å·®å¼‚" << endl;
 	return 0;
 }
 
