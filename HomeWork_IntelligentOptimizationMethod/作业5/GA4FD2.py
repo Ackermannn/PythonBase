@@ -62,3 +62,4 @@ for ii in range(300):
 print("历史最大适应度: ", max_fitness)
 print("他的染色体是: ", max_g)
 print(max_fitness/750)
+# 跑出来的结果在600以上 甚至到650 ,最好是750
