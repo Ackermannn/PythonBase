@@ -12,7 +12,7 @@ def DF100(str100):
     return sum([DF4(str100[i: i + 4]) for i in range(0, gmlen, 4)])
 
 
-popu_size = 100  # 种群数量 最好是偶数
+popu_size = 500  # 种群数量 最好是偶数
 pc = 0.9  # 交叉概率
 pm = 0.05  # 变异概率
 gmlen = 4 * 25
@@ -22,15 +22,14 @@ population = ["".join([str(x) for x in numlist[i]]) for i in range(popu_size)]
 
 max_fitness = 0
 max_g = ""
-for ii in range(300):
+for ii in range(1,400):
     # 计算适应度
     fitness = np.array([DF100(population[i]) for i in range(popu_size)])
     # 储存历史极大
     if max(fitness) >= max_fitness:
         max_fitness = max(fitness)
-        max_g = population[fitness.argmax()]
-        
-    print("迭代: ",ii+1," 最大适应度: ",max(fitness))
+        max_g = population[fitness.argmax()]    
+    print("迭代: ",ii," 最大适应度: ",max(fitness))
     
     # 选择
     choice_probility = fitness / sum(fitness)
@@ -62,4 +61,9 @@ for ii in range(300):
 print("历史最大适应度: ", max_fitness)
 print("他的染色体是: ", max_g)
 print(max_fitness/750)
-# 跑出来的结果在600以上 甚至到650 ,最好是750
+'''
+某次随机的结果
+历史最大适应度:  716
+他的染色体是:  1111111100000000000011110000000011110000000011110000000011110000111101001111000011110000000011111111
+0.9546666666666667
+'''
