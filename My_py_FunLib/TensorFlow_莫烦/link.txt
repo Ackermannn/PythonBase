@@ -1,5 +1,0 @@
-中文社区：
-http://www.tensorfly.cn/  
-
-安装
-https://tensorflow.google.cn/install/pip
