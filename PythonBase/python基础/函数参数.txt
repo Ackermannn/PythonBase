@@ -1,0 +1,9 @@
+# =============收集参数==============
+'''
+def test(*params,exp = 0)  # 收集参数
+    print('参数的长度：',len(params),exp);
+    print('第二个参数是：',params[1]);
+'''
+深入理解python的 *args 和**kwargs 可变参数
+：link：
+https://www.jianshu.com/p/037b6ea516f1?utm_campaign=maleskine&utm_content=note&utm_medium=seo_notes&utm_source=recommendation
