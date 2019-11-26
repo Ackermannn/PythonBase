@@ -1,3 +1,14 @@
+# introduce
+
+使用LDA算法对sklearn人脸数据集合进行降维,再使用后KNN算法进行分类.
+
+# reference
+
+https://www.cnblogs.com/pinard/p/6249328.html
+https://blog.csdn.net/zhangliaobet/article/details/78315879
+
+# code
+```python
 # -*- coding: utf-8 -*-
 """
 Created on Tue Nov 26 22:28:31 2019
@@ -35,3 +46,4 @@ print("使用LDA降维, Test set accuracy: {:.2f}".format(knn.score(X_test_lda, 
 knn = KNeighborsClassifier(n_neighbors=1)  
 knn.fit(X_train, y_train) 
 print("不使用LDA降维 :Test set accuracy: {:.2f}".format(knn.score(X_test, y_test)))
+```
