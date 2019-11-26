@@ -1,13 +1,14 @@
-# introduce
+# Introduce
 
 使用LDA算法对sklearn人脸数据集合进行降维,再使用后KNN算法进行分类.
 
-# reference
+# Reference
 
 https://www.cnblogs.com/pinard/p/6249328.html
+
 https://blog.csdn.net/zhangliaobet/article/details/78315879
 
-# code
+# Code
 ```python
 # -*- coding: utf-8 -*-
 """
