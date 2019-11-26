@@ -8,6 +8,7 @@ https://www.cnblogs.com/pinard/p/6249328.html
 
 https://blog.csdn.net/zhangliaobet/article/details/78315879
 
+Andreas C.Muller, Sarah Guido <Python机器学习基础教程>
 # Code
 ```python
 # -*- coding: utf-8 -*-
