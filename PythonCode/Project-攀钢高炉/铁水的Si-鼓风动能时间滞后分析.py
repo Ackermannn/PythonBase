@@ -50,8 +50,8 @@ Si = dataSi[dataSi.铁次号 < 2 * 1e7]['[Si]'] # 提取铁次号< 2e7
 E[E>2e11] = np.nan  # 画图发现极端值
 E = E.fillna(E.mean()) # 缺失值用均值填充
 
-E = E[150:]  # 数据大块缺失!
-Si = Si[150:]
+E = E[175:]  # 数据大块缺失!
+Si = Si[175:]
 
 
 # 标准化
@@ -64,15 +64,32 @@ plt.plot(range(length), Si)
 
 # 给与 i倍的单位滞后 画图找出最大相关值时的 i
 #   # 可惜Si采样的时间频率是 2 hour ---- 插值吗?
-length = 12 # 最大可能的滞后
-ans = np.zeros(length)
-for i in range(length):
-    ans[i] = Si[i:].corr(E[:-1-i])
-ans = abs(ans)
-plt.figure()
-plt.plot(np.arange(0,length*2,2),ans)
+def late_analysis(df, length):
+#    df = pd.DataFrame(data=[x0,x1]).T 
+    
+#    length = 40 # 给出最大可能的滞后
+    ans = np.zeros(length)
+    ans[0] = df[0].corr(df[1])
+    for i in range(1,length):
+        df2 = pd.DataFrame([np.array(df[0][i:]), np.array(df[1][:-1*i])]).T
+        ans[i] = df2.corr()[0][1]
+    
+    plt.figure()
+    plt.plot(range(length),abs(ans))
+    plt.show()
 
-print('为了数据对齐, 需要移动的表格单位数是: ', ans.argmax())
-print(ans.max())
+df = pd.DataFrame(data=[np.array(Si),np.array(E)]).T
+length = 70 # 最大可能的滞后
+late_analysis(df, length)
+#
+#ans = np.zeros(length)
+#for i in range(length):
+#    ans[i] = Si[i:].corr(E[:-1-i])
+#ans = abs(ans)
+#plt.figure()
+#plt.plot(np.arange(0,length*2,2),ans)
+
+#print('为了数据对齐, 需要移动的表格单位数是: ', ans.argmax())
+#print(ans.max())
      
                        
